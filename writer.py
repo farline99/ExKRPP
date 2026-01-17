@@ -1,6 +1,21 @@
 from docx import Document
 from docx.shared import Pt, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+import datetime
+
+MONTHS = {
+    1: 'января', 2: 'февраля', 3: 'марта', 4: 'апреля',
+    5: 'мая', 6: 'июня', 7: 'июля', 8: 'августа',
+    9: 'сентября', 10: 'октября', 11: 'ноября', 12: 'декабря'
+}
+
+def format_russian_date(date_str):
+    if not date_str: return "«__» _________ 20__ г."
+    try:
+        dt = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        return f"«{dt.day}» {MONTHS[dt.month]} {dt.year} г."
+    except ValueError:
+        return date_str
 
 def set_font(run, size=12, bold=False, underline=False):
     run.font.name = 'Times New Roman'
@@ -23,5 +38,7 @@ def save(data, filepath):
     set_font(p.add_run("проживающий(ая) по адресу: "))
     set_font(p.add_run(f" {data['address']} "), underline=True)
 
-    # Остальной юридический текст опущен для краткости на данном этапе
+    p = doc.add_paragraph()
+    set_font(p.add_run(f"Date: {format_russian_date(data['date'])}"))
+
     doc.save(filepath)
