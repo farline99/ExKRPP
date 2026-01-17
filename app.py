@@ -18,9 +18,15 @@ def index():
 
         filename = "soglasie.docx"
         filepath = os.path.join('/tmp', filename)
+
         writer.save(form_data, filepath)
 
-        return send_file(filepath, as_attachment=True, download_name=filename, mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        return send_file(
+            filepath,
+            as_attachment=True,
+            download_name=filename,
+            mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        )
 
     return render_template('index.html')
 
