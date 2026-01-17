@@ -7,10 +7,20 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        content = request.form.get('content')
-        filepath = os.path.join('/tmp', 'test.txt')
-        writer.save(content, filepath)
-        return send_file(filepath, as_attachment=True, download_name='test.txt', mimetype='text/plain')
+        form_data = {
+            'fio': request.form.get('fio'),
+            'address': request.form.get('address'),
+            'series': request.form.get('passport_series'),
+            'number': request.form.get('passport_number'),
+            'issued': request.form.get('passport_issued'),
+            'date': request.form.get('date_sign')
+        }
+
+        filepath = os.path.join('/tmp', 'data.txt')
+        writer.save(form_data, filepath)
+
+        return send_file(filepath, as_attachment=True, download_name='data.txt', mimetype='text/plain')
+
     return render_template('index.html')
 
 if __name__ == '__main__':

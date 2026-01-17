@@ -3,26 +3,121 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>MVP</title>
+    <title>Генератор Согласия</title>
     <style>
+      :root {
+        --p: #2563eb;
+        --b: #f8fafc;
+        --c: #fff;
+        --t: #334155;
+      }
       body {
-        font-family: sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background: var(--b);
+        color: var(--t);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
         padding: 20px;
       }
-      textarea {
+      .c {
+        background: var(--c);
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px #0000001a;
         width: 100%;
-        height: 200px;
-        margin-bottom: 10px;
+        max-width: 500px;
+      }
+      h1 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 1.5rem;
+        text-align: center;
+        color: #0f172a;
+      }
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #475569;
+      }
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        font-family: inherit;
+        margin-bottom: 1rem;
+        outline: 0;
+      }
+      input:focus {
+        border-color: var(--p);
+        box-shadow: 0 0 0 3px #2563eb1a;
       }
       button {
-        padding: 10px;
+        font-family: inherit;
+        display: block;
+        width: 100%;
+        background: var(--p);
+        color: #fff;
+        border: 0;
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #1d4ed8;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+      }
+      .row input {
+        width: 100%;
       }
     </style>
   </head>
   <body>
-    <h1>Тест сервера</h1>
-    <form method="POST">
-      <textarea name="content" required></textarea><button>Скачать</button>
-    </form>
+    <div class="c">
+      <h1>Согласие на обработку данных</h1>
+      <form method="POST">
+        <label>Ф.И.О. полностью</label
+        ><input name="fio" required placeholder="Иванов Иван Иванович" /><label
+          >Адрес регистрации</label
+        ><input
+          name="address"
+          required
+          placeholder="г. Москва, ул. Ленина, д. 1"
+        />
+        <div class="row">
+          <div>
+            <label>Серия паспорта</label
+            ><input name="passport_series" required placeholder="1234" />
+          </div>
+          <div>
+            <label>Номер</label
+            ><input name="passport_number" required placeholder="567890" />
+          </div>
+        </div>
+        <label>Кем и когда выдан</label
+        ><input
+          name="passport_issued"
+          required
+          placeholder="ТП №1 по г. Москве, 01.01.2020"
+        /><label>Дата подписания</label
+        ><input name="date_sign" type="date" required /><button>
+          Сформировать документ
+        </button>
+      </form>
+    </div>
   </body>
 </html>
